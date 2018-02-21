@@ -2,7 +2,7 @@ name: BedWars
 version: FleetHD
 api: 3.0..0-ALPHA7
 main: FleetHD\BedWars
-author: FleetHD
+author: FleetHD, traduced by GeoZDev
 commands:
     Bedwars:
         description: Bedwars Main Command
