@@ -1,0 +1,11 @@
+name: BedWars
+version: FleetHD
+api: 3.0..0-ALPHA7
+main: FleetHD\BedWars
+author: FleetHD
+commands:
+    Bedwars:
+        description: Bedwars Main Command
+        aliases: [bw]
+    Baslat:
+        description: Bedwars Forcestart Command
