@@ -1,6 +1,6 @@
 name: BedWars
 version: FleetHD
-api: 3.0..0-ALPHA7
+api: 3.0..0-ALPHA11
 main: FleetHD\BedWars
 author: FleetHD, traduced by GeoZDev
 commands:
