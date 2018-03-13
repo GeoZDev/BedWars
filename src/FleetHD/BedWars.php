@@ -65,7 +65,7 @@ class Bedwars extends PluginBase implements Listener {
 	
 	public function onEnable() {
         $this->getServer()->getPluginManager()->registerEvents($this, $this);
-        $this->getLogger()->info("Plugin was activated!! §bTraduction: GeoZDev!");
+        $this->getLogger()->info("Plugin was activated!! Â§bTraduction: GeoZDev!");
         @mkdir($this->getDataFolder());
         @mkdir($this->getDataFolder() . "Arenas");
         @mkdir($this->getDataFolder() . "Maps");
@@ -158,7 +158,7 @@ class Bedwars extends PluginBase implements Listener {
     
 	
 	public function getTeam($pn) {
-        $pn = str_replace("§", "", $pn);
+        $pn = str_replace("Â§", "", $pn);
         $pn = str_replace(TextFormat::ESCAPE, "", $pn);
         $color = $pn{0};
         return $this->convertColorToTeam($color);
@@ -580,13 +580,13 @@ class Bedwars extends PluginBase implements Listener {
 	
 	public function openShop(Player $o) {
         $o->getLevel()->setBlock(new Vector3($o->getFloorX(), $o->getFloorY() - 4, $o->getFloorZ()), Block::get(Block::CHEST));
-        $nbt = new CompoundTag("", [new ListTag("Items", []), new StringTag("id", Tile::CHEST), new IntTag("x", $o->getFloorX()), new IntTag("y", $o->getFloorY() - 4), new IntTag("z", $o->getFloorZ()), new StringTag("CustomName", "§6EGGWars §fMarket") ]);
+        $nbt = new CompoundTag("", [new ListTag("Items", []), new StringTag("id", Tile::CHEST), new IntTag("x", $o->getFloorX()), new IntTag("y", $o->getFloorY() - 4), new IntTag("z", $o->getFloorZ()), new StringTag("CustomName", "Â§6EGGWars Â§fMarket") ]);
         $nbt->Items->setTagType(NBT::TAG_Compound);
         $tile = Tile::createTile("Chest", $o->getLevel(), $nbt);
         if ($tile instanceof Chest) {
             $config = new Config($this->getDataFolder() . "shop.yml", Config::YAML);
             $shop = $config->get("Shop");
-            $tile->setName("§aMarket");
+            $tile->setName("Â§aMarket");
             $tile->getInventory()->clearAll();
             for ($i = 0;$i < count($shop);$i+= 2) {
                 $slot = $i / 2;
@@ -814,16 +814,16 @@ class Bedwars extends PluginBase implements Listener {
                     if ($team != $this->getTeam($player->getNameTag())) {
                         if (in_array($team, $this->getAvailableTeams($arena))) {
                             $player->setNameTag($this->getTeamColor($team) . $name);
-                            $player->sendTitle(("§e$team"), ("§atak?ma kat?ld?n!"));
+                            $player->sendTitle(("Â§e$team"), ("Â§atak?ma kat?ld?n!"));
                             $player->getInventory()->removeItem($item);
                             $player->getInventory()->addItem($item);
                         } else {
-                            $player->sendTitle(("§e$team"), ("§ctak?m dolu!"));
+                            $player->sendTitle(("Â§e$team"), ("Â§ctak?m dolu!"));
                             $player->getInventory()->removeItem($item);
                             $player->getInventory()->addItem($item);
                         }
                     } else {
-                        $player->sendTitle(("§cZaten"), ("§e$team §ctak?mdas?n!"));
+                        $player->sendTitle(("Â§cZaten"), ("Â§e$team Â§ctak?mdas?n!"));
                         $player->getInventory()->removeItem($item);
                         $player->getInventory()->addItem($item);
                     }
@@ -851,7 +851,7 @@ class Bedwars extends PluginBase implements Listener {
                 foreach ($players as $pn) {
                     $p = $this->getServer()->getPlayerExact($pn);
                     if ($p != null) {
-                        $p->sendMessage($name . "» " . $msg);
+                        $p->sendMessage($name . "Â» " . $msg);
                     }
                 }
             } else {
@@ -862,7 +862,7 @@ class Bedwars extends PluginBase implements Listener {
                     foreach ($players as $pn) {
                         $p = $this->getServer()->getPlayerExact($pn);
                         if ($p != null) {
-                            $p->sendMessage(TextFormat::GRAY . "[" . TextFormat::RED . "Herkes" . TextFormat::GRAY . "] " . $player->getNameTag() . TextFormat::GRAY . "» " . TextFormat::WHITE . $msg);
+                            $p->sendMessage(TextFormat::GRAY . "[" . TextFormat::RED . "Herkes" . TextFormat::GRAY . "] " . $player->getNameTag() . TextFormat::GRAY . "Â» " . TextFormat::WHITE . $msg);
                         }
                     }
                 } else {
@@ -871,7 +871,7 @@ class Bedwars extends PluginBase implements Listener {
                         $p = $this->getServer()->getPlayerExact($pn);
                         if ($p != null) {
                             if ($this->getTeam($p->getNameTag()) == $this->getTeam($player->getNameTag())) {
-                                $p->sendMessage(TextFormat::GRAY . "[" . $this->getTeamColor($this->getTeam($player->getNameTag())) . "Tak?m" . TextFormat::GRAY . "] " . $player->getNameTag() . TextFormat::GRAY . "» " . TextFormat::WHITE . $msg);
+                                $p->sendMessage(TextFormat::GRAY . "[" . $this->getTeamColor($this->getTeam($player->getNameTag())) . "Tak?m" . TextFormat::GRAY . "] " . $player->getNameTag() . TextFormat::GRAY . "Â» " . TextFormat::WHITE . $msg);
                             }
                         }
                     }
@@ -925,7 +925,7 @@ class Bedwars extends PluginBase implements Listener {
                 $event->setRespawnPosition(new Position($x, $y, $z, $level));
             } else {
                 $event->setRespawnPosition($this->getServer()->getDefaultLevel()->getSafeSpawn());
-                $player->sendTitle(("§cYata??n"), ("§cyok edildi, art?k do?amazs?n!"));
+                $player->sendTitle(("Â§cYata??n"), ("Â§cyok edildi, art?k do?amazs?n!"));
                 $this->removePlayerFromArena($arena, $name);
                 $this->lasthit[$player->getName() ] = "no";
                 $player->setNameTag($player->getName());
@@ -951,14 +951,14 @@ class Bedwars extends PluginBase implements Listener {
                         foreach ($players as $pn) {
                             $p = $this->getServer()->getPlayerExact($pn);
                             if ($p != null) {
-                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " adl? oyuncu " . TextFormat::YELLOW . $killer->getNameTag() . TextFormat::RED . " taraf?ndan öldürüldü!");
+                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " adl? oyuncu " . TextFormat::YELLOW . $killer->getNameTag() . TextFormat::RED . " taraf?ndan Ã¶ldÃ¼rÃ¼ldÃ¼!");
                             }
                         }
                     } else {
                         foreach ($players as $pn) {
                             $p = $this->getServer()->getPlayerExact($pn);
                             if ($p != null) {
-                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " öldü!");
+                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " Ã¶ldÃ¼!");
                             }
                         }
                     }
@@ -970,13 +970,13 @@ class Bedwars extends PluginBase implements Listener {
                             if ($this->lasthit[$player->getName() ] != "no") {
                                 $p2 = $this->getServer()->getPlayerExact($this->lasthit[$player->getName() ]);
                                 if ($p2 != null) {
-                                    $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " adl? oyuncu " . TextFormat::YELLOW . $p2->getNameTag() . TextFormat::RED . "taraf?ndan öldürüldü!");
+                                    $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " adl? oyuncu " . TextFormat::YELLOW . $p2->getNameTag() . TextFormat::RED . "taraf?ndan Ã¶ldÃ¼rÃ¼ldÃ¼!");
                                     $this->lasthit[$player->getName() ] = "no";
                                 } else {
-                                    $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " öldü!");
+                                    $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " Ã¶ldÃ¼!");
                                 }
                             } else {
-                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " öldü!");
+                                $p->sendMessage($this->prefix . TextFormat::YELLOW . $player->getNameTag() . TextFormat::RED . " Ã¶ldÃ¼!");
                             }
                         }
                     }
@@ -1020,7 +1020,7 @@ class Bedwars extends PluginBase implements Listener {
                         } else {
                             if ($this->getTeam($damager->getNameTag()) == $this->getTeam($player->getNameTag())) {
                                 $event->setCancelled();
-                                $damager->sendTitle(("§cTak?m"), ("§carkada??na zarar veremezsin!"));
+                                $damager->sendTitle(("Â§cTak?m"), ("Â§carkada??na zarar veremezsin!"));
                             } else {
                                 $this->lasthit[$player->getName() ] = $damager->getName();
                             }
@@ -1065,16 +1065,16 @@ class Bedwars extends PluginBase implements Listener {
                     if ($team != $this->getTeam($player->getNameTag())) {
                         if (in_array($team, $this->getAvailableTeams($arena))) {
                             $player->setNameTag($this->getTeamColor($team) . $name);
-                            $player->sendTitle(("§e$team"), ("§atak?ma kat?ld?n!"));
+                            $player->sendTitle(("Â§e$team"), ("Â§atak?ma kat?ld?n!"));
                             $player->getInventory()->removeItem($item);
                             $player->getInventory()->addItem($item);
                         } else {
-                            $player->sendTitle(("§e$team"), ("§ctak?m dolu!"));
+                            $player->sendTitle(("Â§e$team"), ("Â§ctak?m dolu!"));
                             $player->getInventory()->removeItem($item);
                             $player->getInventory()->addItem($item);
                         }
                     } else {
-                        $player->sendTitle(("§cZaten"), ("§e$team §ctak?mdas?n!"));
+                        $player->sendTitle(("Â§cZaten"), ("Â§e$team Â§ctak?mdas?n!"));
                         $player->getInventory()->removeItem($item);
                         $player->getInventory()->addItem($item);
                     }
@@ -1105,19 +1105,19 @@ class Bedwars extends PluginBase implements Listener {
                         $config->setNested("Bed." . $team . ".Alive", false);
                         $config->save();
                         $event->setDrops(array());
-                        $player->sendTitle(("§e$team"), ("§atak?m?n yata??n? y?kt?n!"));
+                        $player->sendTitle(("Â§e$team"), ("Â§atak?m?n yata??n? y?kt?n!"));
                         foreach ($this->getPlayers($arena) as $pn) {
                             $p = $this->getServer()->getPlayerExact($pn);
                             if ($p != null) {
                                 if ($team == $this->getTeam($p->getNameTag())) {
-                                    $p->sendTitle(("§cTak?m?n?n"), ("§cyata?? y?k?ld?!"));
+                                    $p->sendTitle(("Â§cTak?m?n?n"), ("Â§cyata?? y?k?ld?!"));
                                 } else {
-                                    $p->sendTitle(("§e$team"), ("§ctak?m?n yata?? y?k?ld?!"));
+                                    $p->sendTitle(("Â§e$team"), ("Â§ctak?m?n yata?? y?k?ld?!"));
                                 }
                             }
                         }
                     } else {
-                        $player->sendTitle(("§cTak?m?n?n"), ("§cyata??n? y?kamazs?n!"));
+                        $player->sendTitle(("Â§cTak?m?n?n"), ("Â§cyata??n? y?kamazs?n!"));
                         $event->setCancelled();
                     }
                 } elseif (!in_array($block->getId(), $this->breakableblocks)) {
@@ -1158,7 +1158,7 @@ class Bedwars extends PluginBase implements Listener {
                 $teams = (int)$config->get("Teams");
                 $ppt = (int)$config->get("PlayersPerTeam");
                 $maxplayers = $teams * $ppt;
-                $tile->setText($this->prefix, $arena . " " . $teams . "x" . $ppt, TextFormat::GREEN . "Yükleniyor!", TextFormat::GREEN . "0" . TextFormat::GRAY . "/" . TextFormat::RED . ".$maxplayers");
+                $tile->setText($this->prefix, $arena . " " . $teams . "x" . $ppt, TextFormat::GREEN . "YÃ¼kleniyor!", TextFormat::GREEN . "0" . TextFormat::GRAY . "/" . TextFormat::RED . ".$maxplayers");
                 $this->registerSign = false;
                 $player->sendMessage(TextFormat::GREEN . "Ba?ar?yla " . TextFormat::AQUA . $arena . TextFormat::GREEN . " adl? arenaya kalkan eklendi!");
                 $player->sendMessage(TextFormat::GREEN . "Kurulum -> /bw yardim");
@@ -1175,13 +1175,13 @@ class Bedwars extends PluginBase implements Listener {
                             $this->setTeamSelectionItems($player, $arena);
                             $this->addPlayerToArena($arena, $name);
                         } else {
-                            $player->sendTitle(("§cArenaya"), ("§ckat?lamazs?n!"));
+                            $player->sendTitle(("Â§cArenaya"), ("Â§ckat?lamazs?n!"));
                         }
                     } else {
-                        $player->sendTitle(("§cArenaya"), ("§ckat?lamazs?n!"));
+                        $player->sendTitle(("Â§cArenaya"), ("Â§ckat?lamazs?n!"));
                     }
                 } else {
-                    $player->sendTitle(("§cArenaya"), ("§ckat?lamazs?n!"));
+                    $player->sendTitle(("Â§cArenaya"), ("Â§ckat?lamazs?n!"));
                 }
             }
         }
@@ -1199,24 +1199,24 @@ class Bedwars extends PluginBase implements Listener {
                     $config->set("LobbyTimer", 5);
                     $config->save();
                 } else {
-                    $sender->sendTitle(("§cArenada"), ("§cde?ilsin!"));
+                    $sender->sendTitle(("Â§cArenada"), ("Â§cde?ilsin!"));
                 }
             }
         }
         if ($cmd->getName() == "Bedwars" && $sender->isOP()) {
             if (!empty($args[0])) {
                 if (strtolower($args[0]) == "yardim" && $sender->isOP()) {
-                    $sender->sendMessage("§7=====§bFLEETHD§7==========");
-                    $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw yardim " . TextFormat::GRAY . "[" . TextFormat::RED . "BedWars komutlar?n? gösterir!" . TextFormat::GRAY . "]");
+                    $sender->sendMessage("Â§7=====Â§bBEDWARSÂ§7==========");
+                    $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw yardim " . TextFormat::GRAY . "[" . TextFormat::RED . "BedWars komutlar?n? gÃ¶sterir!" . TextFormat::GRAY . "]");
                     $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw tabelaekle <arena> " . TextFormat::GRAY . "[" . TextFormat::RED . "Arena tabelas? ekler!" . TextFormat::GRAY . "]");
-                    $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw haritakaydet <arena> " . TextFormat::GRAY . "[" . TextFormat::RED . "Arenan?n bulundu?u dünyay? kaydeder!" . TextFormat::GRAY . "]");
+                    $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw haritakaydet <arena> " . TextFormat::GRAY . "[" . TextFormat::RED . "Arenan?n bulundu?u dÃ¼nyay? kaydeder!" . TextFormat::GRAY . "]");
                     $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw arenaekle <arena> <tak?msay?s?> <tak?mba??naoyuncusay?s?> " . TextFormat::GRAY . "[" . TextFormat::RED . "Add a new arena" . TextFormat::GRAY . "]");
                     $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw lobiekle <arena>" . TextFormat::GRAY . "[" . TextFormat::RED . "Arenaya lobi ekler!" . TextFormat::GRAY . "]");
                     $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw takimekle <arena> <tak?m>" . TextFormat::GRAY . "[" . TextFormat::RED . "Arenaya tak?m ekler!" . TextFormat::GRAY . "]");
                     $sender->sendMessage(TextFormat::GRAY . "-> " . TextFormat::AQUA . "/bw yatakekle <arena> <tak?m>" . TextFormat::GRAY . "[" . TextFormat::RED . "Arenaya tak?mlar?n yataklar?n? ekler!" . TextFormat::GRAY . "]");
-                    $sender->sendMessage("§7-> §cBu eklenti FleetHD taraf?ndan fixlenerek düzenlenmi?tir!");
-                    $sender->sendMessage("§7-> §chttps://www.youtube.com/c/FleetHD kanal?na abone olman?z rica edilir!");
-                    $sender->sendMessage("§7=====§bFLEETHD§7==========");
+                    $sender->sendMessage("Â§7-> Â§cBedwars traduced by GeoZDev!");
+                    $sender->sendMessage("Â§7-> Â§cTwitter: @ItalianRealms!");
+                    $sender->sendMessage("Â§7=====Â§bBEDWARSÂ§7==========");
                 } elseif (strtolower($args[0]) == "tabelaekle" && $sender->isOP()) {
                     if (!empty($args[1])) {
                         $arena = $args[1];
@@ -1236,7 +1236,7 @@ class Bedwars extends PluginBase implements Listener {
                         $arena = $args[1];
                         if ($this->arenaExists($arena)) {
                             $this->saveMaps($arena);
-                            $sender->sendMessage(TextFormat::GREEN . "Ba?ar?yla" . TextFormat::AQUA . $arena . TextFormat::GREEN . " adl? arenan?n bulundu?u dünyay? kaydettin!");
+                            $sender->sendMessage(TextFormat::GREEN . "Ba?ar?yla" . TextFormat::AQUA . $arena . TextFormat::GREEN . " adl? arenan?n bulundu?u dÃ¼nyay? kaydettin!");
                         } else {
                             $sender->sendMessage(TextFormat::RED . "Arena bulunamad?!");
                         }
@@ -1287,7 +1287,7 @@ class Bedwars extends PluginBase implements Listener {
                             } else {
                                 $alleteams = implode(" ", $this->getAllTeams());
                                 $sender->sendMessage(TextFormat::YELLOW . $team . TextFormat::RED . " tak?m bulunamad?!");
-                                $sender->sendMessage(TextFormat::RED . "Tüm tak?mlar: " . TextFormat::YELLOW . $alleteams);
+                                $sender->sendMessage(TextFormat::RED . "TÃ¼m tak?mlar: " . TextFormat::YELLOW . $alleteams);
                             }
                         } else {
                             $sender->sendMessage(TextFormat::RED . "Arena bulunamad?!");
@@ -1308,7 +1308,7 @@ class Bedwars extends PluginBase implements Listener {
                             } else {
                                 $alleteams = implode(" ", $this->getAllTeams());
                                 $sender->sendMessage(TextFormat::YELLOW . $team . TextFormat::RED . " tak?m bulunamad?!");
-                                $sender->sendMessage(TextFormat::RED . "Tüm tak?mlar: " . TextFormat::YELLOW . $alleteams);
+                                $sender->sendMessage(TextFormat::RED . "TÃ¼m tak?mlar: " . TextFormat::YELLOW . $alleteams);
                             }
                         } else {
                             $sender->sendMessage(TextFormat::RED . "Arena bulunamad?!");
@@ -1440,7 +1440,7 @@ class BWGameSender extends PluginTask {
                             foreach ($players as $pn) {
                                 $p = $this->plugin->getServer()->getPlayerExact($pn);
                                 if ($p != null) {
-                                    $p->sendTitle(("§aBa?lamas?na "), ("§e$lobbytimer §asaniye!"));
+                                    $p->sendTitle(("Â§aBa?lamas?na "), ("Â§e$lobbytimer Â§asaniye!"));
                                 }
                             }
                         }
@@ -1448,7 +1448,7 @@ class BWGameSender extends PluginTask {
                             foreach ($players as $pn) {
                                 $p = $this->plugin->getServer()->getPlayerExact($pn);
                                 if ($p != null) {
-                                    $p->sendTitle(("§aBa?lamas?na "), ("§e$lobbytimer §asaniye!"));
+                                    $p->sendTitle(("Â§aBa?lamas?na "), ("Â§e$lobbytimer Â§asaniye!"));
                                 } else {
                                     $this->plugin->removePlayerFromArena($arena, $pn);
                                 }
@@ -1599,7 +1599,7 @@ class BWGameSender extends PluginTask {
                             foreach ($players as $pn) {
                                 $p = $this->plugin->getServer()->getPlayerExact($pn);
                                 if ($p != null) {
-                                    $p->sendTitle(("§cArenan?n"), ("§cyenilenmesine §e$endtimer §csaniye!"));
+                                    $p->sendTitle(("Â§cArenan?n"), ("Â§cyenilenmesine Â§e$endtimer Â§csaniye!"));
                                 } else {
                                     $this->plugin->removePlayerFromArena($arena, $pn);
                                 }
